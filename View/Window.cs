@@ -94,7 +94,7 @@ namespace HyperEdit.View
 
         private static void SaveWindowPos()
         {
-            WindowPos.Save();
+            WindowPos.Save(IoExt.GetPath("windowpos.cfg"));
         }
 
         public static event Action<bool> AreWindowsOpenChange;
@@ -147,7 +147,7 @@ namespace HyperEdit.View
             window._windowRect = new Rect(winx, winy, width, height);
             window._drawFunc = drawFunc;
             if (allOpenWindows.Length == 0)
-                AreWindowsOpenChange?.Invoke(true);
+                AreWindowsOpenChange.Invoke(true);
         }
 
         private Window()
@@ -196,7 +196,7 @@ namespace HyperEdit.View
             _isOpen = false;
             Destroy(this);
             if (GameObject.GetComponents<Window>().Any(w => w._isOpen) == false)
-                AreWindowsOpenChange?.Invoke(false);
+                AreWindowsOpenChange.Invoke(false);
         }
 
         internal static void CloseAll()

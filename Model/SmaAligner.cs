@@ -5,7 +5,8 @@ namespace HyperEdit.Model
 {
     public static class SmaAligner
     {
-        public static List<Vessel> AvailableVessels => FlightGlobals.fetch?.vessels ?? new List<Vessel>();
+        //public static List<Vessel> AvailableVessels => FlightGlobals.fetch?.vessels ?? new List<Vessel>();
+        public static List<Vessel> AvailableVessels = new List<Vessel>();
 
         public static void Align(List<Vessel> vesselsToAlign)
         {

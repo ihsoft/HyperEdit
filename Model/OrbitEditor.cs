@@ -256,7 +256,7 @@ namespace HyperEdit.Model
                 Extensions.Log("OrbitPhysicsManager.HoldVesselUnpack threw NullReferenceException");
             }
 
-            var allVessels = FlightGlobals.fetch?.vessels ?? (IEnumerable<Vessel>)new[] { vessel };
+            var allVessels = FlightGlobals.fetch.vessels ?? (IEnumerable<Vessel>)new[] { vessel };
             foreach (var v in allVessels)
                 v.GoOnRails();
 
@@ -304,10 +304,10 @@ namespace HyperEdit.Model
             orbit.UpdateFromUT(Planetarium.GetUniversalTime());
             if (orbit.referenceBody != newOrbit.referenceBody)
             {
-                orbitDriver.OnReferenceBodyChange?.Invoke(newOrbit.referenceBody);
+                orbitDriver.OnReferenceBodyChange.Invoke(newOrbit.referenceBody);
             }
             RateLimitedLogger.Log(HardsetOrbitLogObject,
-                $"Orbit \"{orbitDriver.OrbitDriverToString()}\" changed to: inc={orbit.inclination} ecc={orbit.eccentricity} sma={orbit.semiMajorAxis} lan={orbit.LAN} argpe={orbit.argumentOfPeriapsis} mep={orbit.meanAnomalyAtEpoch} epoch={orbit.epoch} refbody={orbit.referenceBody.CbToString()}");
+                "Orbit \"{orbitDriver.OrbitDriverToString()}\" changed to: inc={orbit.inclination} ecc={orbit.eccentricity} sma={orbit.semiMajorAxis} lan={orbit.LAN} argpe={orbit.argumentOfPeriapsis} mep={orbit.meanAnomalyAtEpoch} epoch={orbit.epoch} refbody={orbit.referenceBody.CbToString()}");
         }
 
         public static Orbit Clone(this Orbit o)

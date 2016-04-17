@@ -62,8 +62,8 @@ namespace HyperEdit.Model
         {
             get
             {
-                var kerbin = Planetarium.fetch?.Home;
-                var minmus = FlightGlobals.fetch?.bodies?.FirstOrDefault(b => b.bodyName == "Minmus");
+                var kerbin = Planetarium.fetch.Home;
+                var minmus = FlightGlobals.fetch.bodies.FirstOrDefault(b => b.bodyName == "Minmus");
                 if (kerbin == null)
                 {
                     return new List<LandingCoordinates>();
@@ -116,7 +116,7 @@ namespace HyperEdit.Model
                 {
                     cfg.AddNode(coord.ToConfigNode());
                 }
-                cfg.Save();
+                cfg.Save(FilenameNoExt + ".cfg");
             }
         }
 
@@ -175,10 +175,10 @@ namespace HyperEdit.Model
 
         private struct LandingCoordinates : IEquatable<LandingCoordinates>
         {
-            public string Name { get; }
-            public double Lat { get; }
-            public double Lon { get; }
-            public CelestialBody Body { get; }
+            public string Name;
+            public double Lat;
+            public double Lon;
+            public CelestialBody Body;
 
             public LandingCoordinates(string name, double lat, double lon, CelestialBody body)
                 : this()
@@ -352,7 +352,7 @@ namespace HyperEdit.Model
                     var accel = (vessel.srf_velocity + vessel.upAxis)*-0.5;
                     vessel.ChangeWorldVelocity(accel);
                     RateLimitedLogger.Log(_accelLogObject,
-                        $"(Happening every frame) Soft-lander changed ship velocity this frame by vector {accel.x},{accel.y},{accel.z} (mag {accel.magnitude})");
+                        "(Happening every frame) Soft-lander changed ship velocity this frame by vector {accel.x},{accel.y},{accel.z} (mag {accel.magnitude})");
                 }
             }
             else

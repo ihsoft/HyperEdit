@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using KSP.UI.Screens;
+using UnityEngine.UI;
 
 [KSPAddonFixed(KSPAddon.Startup.MainMenu, true, typeof(HyperEditModule))]
 public class HyperEditModule : MonoBehaviour
@@ -101,7 +103,7 @@ namespace HyperEdit
                     RemoveAppLauncher();
                 }
                 _hyperEditConfig.SetValue("UseAppLauncherButton", value.ToString(), true);
-                _hyperEditConfig.Save();
+                _hyperEditConfig.Save(IoExt.GetPath("hyperedit.cfg"));
             }
         }
 
@@ -169,7 +171,9 @@ namespace HyperEdit
             _appLauncherButton = null;
         }
 
-        public void FixedUpdate() => Model.PlanetEditor.TryApplyFileDefaults();
+        public void FixedUpdate() {
+          Model.PlanetEditor.TryApplyFileDefaults();
+        }
 
         public void Update()
         {
@@ -205,9 +209,13 @@ namespace HyperEdit
             Extensions.Log("Using \"" + RootDir + "\" as root config directory");
         }
 
-        public static string GetPath(string path) => path == null ? RootDir : System.IO.Path.Combine(RootDir, path);
+        public static string GetPath(string path) {
+          return path == null ? RootDir : System.IO.Path.Combine(RootDir, path);
+        }
 
-        public static void Save(this ConfigNode config) => config.Save(GetPath(config.name + ".cfg"));
+        public static void Save(ConfigNode config) {
+          config.Save(GetPath(config.name + ".cfg"));
+        }
     }
 
     public static class RateLimitedLogger
@@ -304,14 +312,14 @@ namespace HyperEdit
             value = temp;
         }
 
-        private static GUIStyle _pressedButton;
+        //private static GUIStyle _pressedButton;
 
-        public static GUIStyle PressedButton => _pressedButton ?? (_pressedButton = new GUIStyle(HighLogic.Skin.button)
+        public static GUIStyle PressedButton = new GUIStyle(HighLogic.Skin.button)
         {
             normal = HighLogic.Skin.button.active,
             hover = HighLogic.Skin.button.active,
             active = HighLogic.Skin.button.normal
-        });
+        };
 
         public static void RealCbUpdate(this CelestialBody body)
         {
@@ -364,7 +372,7 @@ namespace HyperEdit
                 }
                 if (killcount != 0)
                 {
-                    Log($"Removed {killcount} launch clamps from {vessel.vesselName}");
+                    Log("Removed {killcount} launch clamps from {vessel.vesselName}");
                 }
             }
         }

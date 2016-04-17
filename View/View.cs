@@ -173,7 +173,7 @@ namespace HyperEdit.View
             var newValue = (double) GUILayout.HorizontalSlider((float) oldValue, 0, 1);
             if (Math.Abs(newValue - oldValue) > 0.001)
             {
-                _onChange?.Invoke(newValue);
+                _onChange.Invoke(newValue);
                 Extensions.ClearGuiFocus();
             }
             GUILayout.EndHorizontal();
@@ -202,7 +202,7 @@ namespace HyperEdit.View
             if (Math.Abs(newValue - Value) > 0.001)
             {
                 Value = newValue;
-                _onChange?.Invoke(Value);
+                _onChange.Invoke(Value);
                 Extensions.ClearGuiFocus();
             }
             GUILayout.EndHorizontal();
@@ -223,13 +223,15 @@ namespace HyperEdit.View
             set
             {
                 _currentlySelected = value;
-                _onSelect?.Invoke(value);
+                if (_onSelect != null) {
+                  _onSelect.Invoke(value);
+                }
             }
         }
 
         public void ReInvokeOnSelect()
         {
-            _onSelect?.Invoke(_currentlySelected);
+            _onSelect.Invoke(_currentlySelected);
         }
 
         public ListSelectView(string prefix, Func<IEnumerable<T>> list, Action<T> onSelect = null,

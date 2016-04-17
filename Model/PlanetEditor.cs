@@ -90,7 +90,7 @@ namespace HyperEdit.Model
                 rotationPeriod = body.rotationPeriod;
                 initialRotation = body.initialRotation;
                 tidallyLocked = body.tidallyLocked;
-                orbit = body.orbitDriver?.orbit.Clone();
+                orbit = body.orbitDriver.orbit.Clone();
 
                 if (DefaultSettings.ContainsKey(body.bodyName) == false)
                 {
@@ -119,7 +119,7 @@ namespace HyperEdit.Model
 
                 body.RealCbUpdate();
 
-                Extensions.Log($"Set body \"{body.bodyName}\"'s parameters to:\n{GetConfig(body)}");
+                Extensions.Log("Set body \"{body.bodyName}\"'s parameters to:\n{GetConfig(body)}");
             }
 
             public static ConfigNode GetConfig(CelestialBody body)
@@ -186,7 +186,7 @@ namespace HyperEdit.Model
 
                 body.RealCbUpdate();
 
-                Extensions.Log($"Set body \"{body.bodyName}\"'s parameters to:\n{GetConfig(body)}");
+                Extensions.Log("Set body \"{body.bodyName}\"'s parameters to:\n{GetConfig(body)}");
             }
         }
 
@@ -217,7 +217,7 @@ namespace HyperEdit.Model
 
         public static void SavePlanet(CelestialBody body)
         {
-            PlanetSettings.GetConfig(body).Save();
+            PlanetSettings.GetConfig(body).Save(IoExt.GetPath(body.bodyName + ".cfg"));
         }
 
         public static void TryApplyFileDefaults()

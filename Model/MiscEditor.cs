@@ -69,7 +69,7 @@ namespace HyperEdit.Model
                     {
                         part.TransferResource(resource.info.id, resource.maxAmount * value - resource.amount);
                         RateLimitedLogger.Log(SetResourceLogObject,
-                            $"Set part \"{part.partName}\"'s resource \"{resource.resourceName}\" to {value*100}% by requesting {resource.maxAmount*value - resource.amount} from it");
+                            "Set part \"{part.partName}\"'s resource \"{resource.resourceName}\" to {value*100}% by requesting {resource.maxAmount*value - resource.amount} from it");
                     }
                 }
             }
@@ -85,7 +85,7 @@ namespace HyperEdit.Model
                 {
                     part.TransferResource(resource.info.id, resource.maxAmount - resource.amount);
                     Extensions.Log(
-                        $"Refilled part \"{part.partName}\"'s resource \"{resource.resourceName}\" by requesting {resource.maxAmount - resource.amount} from it");
+                        "Refilled part \"{part.partName}\"'s resource \"{resource.resourceName}\" by requesting {resource.maxAmount - resource.amount} from it");
                 }
             }
         }
@@ -124,7 +124,7 @@ namespace HyperEdit.Model
         private bool _doBoost;
         private readonly object _boostLogObject = new object();
 
-        public KeyCode[] Keys { get; set; } = { KeyCode.LeftControl, KeyCode.B };
+        public KeyCode[] Keys = { KeyCode.LeftControl, KeyCode.B };
 
         public double Speed { get; set; }
 
@@ -147,7 +147,7 @@ namespace HyperEdit.Model
             toAdd *= (float)Speed;
             vessel.ChangeWorldVelocity(toAdd);
             RateLimitedLogger.Log(_boostLogObject,
-                $"Booster changed vessel's velocity by {toAdd.x},{toAdd.y},{toAdd.z} (mag {toAdd.magnitude})");
+                "Booster changed vessel's velocity by {toAdd.x},{toAdd.y},{toAdd.z} (mag {toAdd.magnitude})");
         }
     }
 }

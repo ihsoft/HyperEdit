@@ -248,7 +248,7 @@ namespace HyperEdit.View
             var resetPlanet = new ButtonView("Reset to defaults", "Reset the selected planet to defaults",
                                   () => Model.PlanetEditor.ResetToDefault(currentlyEditing.CurrentlySelected.celestialBody));
 
-            var planetButtons = new ConditionalView(() => currentlyEditing.CurrentlySelected?.celestialBody != null,
+            var planetButtons = new ConditionalView(() => currentlyEditing.CurrentlySelected.celestialBody != null,
                                     new VerticalView(new IView[]
                     {
                         savePlanet,
